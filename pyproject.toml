@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf-image-converter"
+version = "0.1.0"
+description = "Convert PDFs to images and images to PDFs"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "Pillow>=10.0.0",
+  "PyMuPDF>=1.24.0",
+]
+
+[project.scripts]
+pdf-image-converter = "converter:main"
+
+[tool.setuptools]
+py-modules = ["converter"]
