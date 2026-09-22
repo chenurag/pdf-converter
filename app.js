@@ -1,5 +1,4 @@
 const pdfjsLibPromise = import("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs");
-const { jsPDF } = window.jspdf;
 const $ = (id) => document.getElementById(id);
 
 function download(blob, filename) {
@@ -61,7 +60,7 @@ $("image-convert").addEventListener("click", async () => {
   if (!imageFiles.length) return;
   const button = $("image-convert"); button.disabled = true; $("image-status").textContent = "Building PDF…";
   try {
-    const pdf = new jsPDF({ unit: "px", format: "a4" });
+    const pdf = new window.jspdf.jsPDF({ unit: "px", format: "a4" });
     for (let index = 0; index < imageFiles.length; index += 1) {
       const dataUrl = await new Promise((resolve) => {
         const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.readAsDataURL(imageFiles[index]);
