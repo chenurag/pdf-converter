@@ -1,4 +1,5 @@
 const pdfjsLibPromise = import("https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs");
+const pdfjsWorkerUrl = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
 const $ = (id) => document.getElementById(id);
 
 function download(blob, filename) {
@@ -33,6 +34,7 @@ $("pdf-convert").addEventListener("click", async () => {
   const button = $("pdf-convert"); button.disabled = true; $("pdf-status").textContent = "Rendering pages…";
   try {
     const pdfjsLib = await pdfjsLibPromise;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerUrl;
     const pdf = await pdfjsLib.getDocument({ data: await pdfFile.arrayBuffer() }).promise;
     const format = $("image-format").value, scale = Number($("image-scale").value);
     for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
